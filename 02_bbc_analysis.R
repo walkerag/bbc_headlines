@@ -222,13 +222,19 @@ text_df <- text_df %>% ungroup()
 #Plot counts
 text_df %>%
   count(word, sort = TRUE) %>%
-  filter(n > 30) %>%
+  filter(n > 50) %>%
   mutate(word = reorder(word, n)) %>%
   ggplot(aes(word, n)) +
-  geom_col() +
+  geom_col(fill="forestgreen") +
   xlab(NULL) +
-  coord_flip()
-
+  coord_flip() +
+  ggtitle("U.S. and Trump Are Top Headline Grabbers") +
+  theme(text = element_text(size = 28,family="Trebuchet MS")
+        ,axis.title.y=element_text(margin=margin(0,10,0,0)) 
+        ,axis.title.x=element_text(margin=margin(10,0,0,0))
+  ) +
+  ylab("Word Count")
+  
 #Save formatted data
 saveRDS(text_df,file = paste0(path,"text_df.rds"))
 
